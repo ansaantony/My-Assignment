@@ -33,6 +33,44 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link href="css1/cust.css" rel='stylesheet' type='text/css' media="all">
+
+<script language="javascript">
+var total_items = 1;
+
+function CalculateItemsValue() {
+	var total = 2;
+	for (i=1; i<=total_items; i++) {
+		
+		itemID = document.getElementById("qnt_"+i);
+		if (typeof itemID === 'undefined' || itemID === null) {
+			alert("No such item - " + "qnt_"+i);
+		} else {
+			total = total * parseInt(itemID.value) +  parseInt(itemID.getAttribute("data-price")  );
+		}
+		
+	}
+	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
+	
+}
+
+var total_items = 1;
+
+function CalculateItemsValues() {
+	var total = 0;
+	for (i=1; i<=total_items; i++) {
+		
+		itemID = document.getElementById("qnt_"+i);
+		if (typeof itemID === 'undefined' || itemID === null) {
+			alert("No such item - " + "qnt_"+i);
+		} else {
+			total = total + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
+		}
+		
+	}
+	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
+	
+}
+</script>
    </head>
    <body>
   
@@ -52,69 +90,30 @@
 @section('content')
 
 <div class="container">
+<div class="card-header">ADD ICE CREAM</div>
+            @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Ice Cream Store</div>
 
-             
+                </div>
             </div>
-            
+    </div>
+  </div>
+</div>
+<div class="container">
 
-       
                
-              
-        </div>
-    </div>
-    
-</div>
+						
 </div>
 
-
-<div class="container">
-    
-
-<div class="container">
-<?php
- $product = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, 
- tbl_icecreams as d , tbl_prizes as e where d.pid=e.pid AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
-?>
- <div class="row">
-@isset($product)
-@foreach($product as $ice)
-
-   
-        <div class="col-md-4 col-sm-3">
-            <div class="product-grid6">
-                <div class="product-image6">
-                    <a href="#">
-                    <img class="pic-1" src= "{{ asset('/images/icecreams/'.$ice->filename.'') }}">
-                    </a>
-                </div>
-                <div class="product-content">
-                    <h3 class="title"><a href="#">{{$ice->recipe}}</a></h3>
-                    <div class="price">Rs. {{$ice->prize}}
-                        <!-- <span>{{$ice->prize}}</span> -->
-                    </div>
-                </div>
-                <ul class="social">
-                    <!-- <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li> -->
-                    <!-- <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li> -->
-                    <li><a href="/single?pid={{$ice->pid}}" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        @endforeach
-        @endisset  
-       
-    </div>
+</div>
 </div>
 <hr>
-
-
-          
-           
-
-            
-           </div> 
+ </div> 
 @endsection

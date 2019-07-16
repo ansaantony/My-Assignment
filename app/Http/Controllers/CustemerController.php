@@ -16,7 +16,7 @@ class CustemerController extends Controller
      */
     public function index()
     {
-                         
+        return redirect('customer.cart');                   
     }
 
     /**
@@ -73,9 +73,42 @@ class CustemerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $re)
     {
-        //
+        
+        $pid=$re->input('pid'); 
+        $id=$re->input('id');
+        $quantity=$re->input('qnt_1');
+        $prize=$re->input('prize');
+        $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c,
+        tbl_icecreams as d , tbl_prizes as e 
+       where d.pid='$pid' AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid AND e.pid='$pid'");
+       foreach($recipe as $row)
+        if($row->shape == 'Cup')  {
+           
+                $total = 2 ;
+                $total = $total * $quantity  +  $prize;
+                
+            }
+            else {
+                $total = 0 ;
+                $total = $total + $quantity  *  $prize;
+               
+            }
+               
+        $check=DB::table('tbl_carts')->where(['pid'=>$pid])->where(['id'=>$id])->get();
+        if(count($check)==0)
+       {
+       DB::insert('insert into tbl_carts(cartid,pid,id,quantity,total,status) 
+       values(?,?,?,?,?,?)',[null,$pid,$id,$quantity,$total,1]);
+      
+       return redirect('/cart')->with('Success','Item Addedd to Cart.');
+      }
+       else
+       {
+          return redirect()->back() ->with('Failed','Item Already Exists.');
+         
+        }
     }
 
     /**

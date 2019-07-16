@@ -33,6 +33,44 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link href="css1/cust.css" rel='stylesheet' type='text/css' media="all">
+
+<script language="javascript">
+var total_items = 1;
+
+function CalculateItemsValue() {
+	var total = 2;
+	for (i=1; i<=total_items; i++) {
+		
+		itemID = document.getElementById("qnt_"+i);
+		if (typeof itemID === 'undefined' || itemID === null) {
+			alert("No such item - " + "qnt_"+i);
+		} else {
+			total = total * parseInt(itemID.value) +  parseInt(itemID.getAttribute("data-price")  );
+		}
+		
+	}
+	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
+	
+}
+
+var total_items = 1;
+
+function CalculateItemsValues() {
+	var total = 0;
+	for (i=1; i<=total_items; i++) {
+		
+		itemID = document.getElementById("qnt_"+i);
+		if (typeof itemID === 'undefined' || itemID === null) {
+			alert("No such item - " + "qnt_"+i);
+		} else {
+			total = total + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
+		}
+		
+	}
+	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
+	
+}
+</script>
    </head>
    <body>
   
@@ -46,7 +84,7 @@
 
                <nav >
                   <div id="logo">
-                     <h1><a class="" href="/chome">Ice milk<span>Tasty cream</span></a></h1>
+                     <h1><a class="" href="home">Ice milk<span>Tasty cream</span></a></h1>
                </div>
 @extends('layouts.app')
 @section('content')
@@ -60,6 +98,12 @@
                 </div>
             </div>
     </div>
+    <div class="card-header">ADD TO CART</div>
+            @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
   </div>
 </div>
 <div class="container">
@@ -105,32 +149,57 @@
                                 </a>
                                
                             </div>
-                            <form class="cart clearfix" method="post" action="/cartt">@csrf
+                            <form  method="post" action="/cartt">@csrf
                             <div class="cart-btn d-flex mb-50">
                             @if($row->shape == 'Cup')        
                             <p>Quarter  : </p>
                                     <div class="quantity">
-                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); 
-                                    var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
-                                    <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                    <input type="number" min="1" max="" required autocomplete="off" name="quantity" id="qty" value="" onChange="copy()"/>
-                                     <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
-                                     <i class="fa fa-caret-up" aria-hidden="true"></i></span>         
-                             @else
-                             <p>Quantity  :</p>
-                                    <div class="quantity">
-                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty');
-                                     var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
-                                    <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                   <input type="number" min="1" max="" required autocomplete="off" name="quantity" id="qty" value="" onChange="copy()"/>
-                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
-                                    <i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                            @endif
+                                    <tr>
+		<td>Item A</td>
+		<td>
+		<input name="qnt_1" type="text" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValue()" /></td>
+		<td>{{$row->prize}}</td>
+	</tr>
+	
+    <tr>
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+		<td align="right" bgcolor="#CCCCCC"><strong><br>Total:<div id="ItemsTotal">Rs.0</div></strong></td>
+	</tr>
+    <input type="hidden" value=" <?php echo"<script>document.writeln(total);</script>"; ?> " id="total">
+                                    </div>   
+
+     @else
+     <p>Quantity  :</p>
+     <div class="quantity">
+      <tr>
+		<td>Item A</td>
+		<td>
+		<input name="qnt_1" type="text" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValues()" /></td>
+		<td>{{$row->prize}}</td>
+	</tr>
+	
+    <tr>
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+		<td align="right" bgcolor="#CCCCCC"><strong><br>Total:<div id="ItemsTotal">Rs.0</div></strong></td>
+	</tr>
+    <input type="hidden" value=" <?php echo"<script>document.writeln(total);</script>"; ?> " id="total">
+                                    </div>     
+     @endif
                             <!-- Add to Cart Form -->
-                           </div>
-                        </div>
-                              
-                            <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+      </div>
+     </div>
+     <input type="hidden" value="{{$row->pid}}" name="pid">
+     <?php
+   $email = Auth::user()->email;
+ $st=DB::select("select * from users where users.email='$email'");
+  ?>
+  @foreach($st as $rowwww)
+   <input type="hidden"  name="id" value="{{$rowwww->id}}">
+@endforeach
+     <input type="hidden" value="{{$rowwww->id}}" name="id">
+     <input type="hidden" id="prize" name="prize" value="{{$row->prize}}">
+                        
+    <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
                             </form>
                         </div> @endforeach
                     </div>
@@ -143,29 +212,7 @@
     
 						
 </div>
-             
- <script>
- function copy()
-{
-	var qua=document.getElementById("qtr").value;
-	var pr=document.getElementById("pr").value;
-	var c=pr * qua;
-	//alert(c);
-	tot.value=c;
-	//document.setElementById("tot").value=c;
-	return c;
-}
-function copy()
-{
-	var qua=document.getElementById("qty").value;
-	var pr=document.getElementById("pr").value;
-	var c=pr * qua;
-	//alert(c);
-	tot.value=c;
-	//document.setElementById("tot").value=c;
-	return c;
-}
-</script>
+
 </div>
 </div>
 <hr>
