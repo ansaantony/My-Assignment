@@ -71,28 +71,26 @@
               
         </div>
     </div>
-    
-</div>
-</div>
+    </div>
 <div class="panel-body">
                     <div class="row">
                     <div class="col-xs-6 col-md-6"> <br>
                         <a href="/home" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>HOME</a>
                           <a href="/add" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>ADD +</a>
-                          <a href="/view" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>VIEW</a><br> 
+                          <a href="/view" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>VIEW</a>
                           <a href="/update" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>UPDATE</a>
                           <a href="/view" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>DELETE</a><br> 
                         
-                          <a href="/users" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>USERS</a>
-                          <!-- <a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a><br>  -->
-                          <a href="/pics" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-picture"></span> <br/>PHOTOS</a>
+                         
                           <!-- <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a> -->
                         </div>
                     </div>
                   
                 </div>
           
-           
+               
+
+</div>
 
             
            </div> 

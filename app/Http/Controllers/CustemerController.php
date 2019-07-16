@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\icecream;
+use DB;
+use App\prize;
 
 class CustemerController extends Controller
 {
@@ -13,8 +16,7 @@ class CustemerController extends Controller
      */
     public function index()
     {
-        
-                  
+                         
     }
 
     /**
@@ -44,9 +46,13 @@ class CustemerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $req)
     {
-        //
+       $pid=$req->input('pid');
+       $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c,
+       tbl_icecreams as d , tbl_prizes as e 
+      where d.pid='$pid' AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid AND e.pid='$pid'");
+      return view('customer.single',compact('recipe'));
     }
 
     /**

@@ -16,13 +16,12 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/chome', 'CustemerController@index')->name('home');
 Route::get('/add','icecreamsController@create');
 Route::get('/addice',array('as'=>'myform','uses'=>'icecreamsController@createice'));
 Route::get('/update','icecreamsController@updatep');
 Route::any('/prize', 'icecreamsController@showp');
-Route::any('/editprize', 'icecreamsController@showprize');
-Route::any('/updateprize/{pid}', 'icecreamsController@prize');
+Route::any('/editprize/', 'icecreamsController@showprize');
+Route::any('/updateprize/{rid}', 'icecreamsController@prize');
 Route::get('/view','icecreamsController@index');
 Route::get('/delete-ice/{pid}', 'icecreamsController@destroy');
 Route::any('/edit/{pid}', 'icecreamsController@edit');
@@ -33,3 +32,8 @@ Route::get('/Editt', 'icecreamsController@show');
 Route::get('/addrecipe',array('as'=>'myform','uses'=>'icecreamsController@addrecipee'));
 Route::get('/createrecipe/ajax/{rid}',array('as'=>'/createrecipe.ajax','uses'=>'icecreamsController@myrecipeAjax'));
 Route::get('/createsize/ajax/{sid}',array('as'=>'/createsize.ajax','uses'=>'icecreamsController@mysizeAjax'));
+
+
+//custemer
+Route::get('/chome', 'CustemerController@index')->name('home');
+Route::get('/single','CustemerController@show');

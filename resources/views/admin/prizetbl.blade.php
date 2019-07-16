@@ -91,9 +91,9 @@
     					<th class="text-center">
 							Size
 						</th>
-                        <th class="text-center">
+                        <!-- <th class="text-center">
 							Prize
-						</th>
+						</th> -->
                         <th class="text-center">
 							Image
 						</th>
@@ -107,8 +107,10 @@
 				</thead>
                
 				<tbody>
+              
                 @isset($recipe)
                 @foreach($recipe as $ice)
+           
     				<tr id='addr0' data-id="0" class="hidden">
 						
 						<td data-name="mail">
@@ -120,25 +122,35 @@
     					<td data-name="mail">
                         <label>{{$ice->size}}</label>
 						</td>
-                        <td data-name="mail">
-                        <label>{{$ice->prize}}</label>
-						</td>
+                       
                         <td data-name="mail">
                         <img   width="25%" height="15%" src="/images/icecreams/{{$ice->filename}}" />
 						</td>
                         
-                         
+                       
                         <td data-name="del">
-                            <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove' >
+                       
+                             @if($ice->pstatus == '0') 
+                                    
+                                                                        
+                             <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove' >
                             
-                            <a  href="/prize?pid={{$ice->pid}}"><span aria-hidden="true">Add</span></button></a>
-                            <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove' >
-                            <a  href="/editprize?pid={{$ice->pid}}"><span aria-hidden="true">Edit</span></button></a>
+                            <a  href="/prize?pid={{$ice->pid}}"><span aria-hidden="true">Add Prize</span></button></a>    
+                            @else
+                                <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove' >
+                            <a  href="/editprize?pid={{$ice->pid}}"><span aria-hidden="true">Edit Prize</span></button></a>
+                                   
+                            @endif
+                                               
                         
                              </td>
+                              
 						</th>
-					</tr>@endforeach
+					</tr>
+                      
+                        @endforeach
                           @endisset
+                         
 				</tbody> 
 			</table>
 

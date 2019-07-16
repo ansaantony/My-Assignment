@@ -80,7 +80,7 @@
   
     @isset($recipe)
     @foreach($recipe as $ice)
-    <form action="{{url('/updateprize/'.$ice->pid)}}" method="POST">
+    <form action="{{url('/updateprize/'.$ice->rid)}}" method="POST">
     @csrf
   <label>
   <p class="label-txt">Amount</p>
@@ -101,7 +101,8 @@
 <label>
 <p class="label-txt">Size</p>
     <input type="text" class="input"  id="size" name="size" value="{{$ice->size}}" readonly>
-
+    <input type="hidden"   id="pid" name="pid" value="{{$ice->pid}}" readonly>
+    <input type="hidden"   id="rid" name="rid" value="{{$ice->rid}}" readonly>
     <div class="line-box">
       <div class="line"></div>
     </div>
