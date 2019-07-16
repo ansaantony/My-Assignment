@@ -37,5 +37,6 @@ Route::get('/createsize/ajax/{sid}',array('as'=>'/createsize.ajax','uses'=>'icec
 //custemer
 Route::get('/chome', 'CustemerController@index')->name('home');
 Route::get('/single','CustemerController@show');
-Route::any('/cart','CustemerController@index');
+Route::any('/cart','CustemerController@view');
 Route::any('/cartt','CustemerController@update');
+Route::get('/delete-product/{pid}', 'CustemerController@destroy');

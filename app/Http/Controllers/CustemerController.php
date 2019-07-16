@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\icecream;
 use DB;
 use App\prize;
+use Illuminate\Support\Facades\Auth;
 
 class CustemerController extends Controller
 {
@@ -16,7 +17,7 @@ class CustemerController extends Controller
      */
     public function index()
     {
-        return redirect('customer.cart');                   
+                          
     }
 
     /**
@@ -117,8 +118,26 @@ class CustemerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($pid)
     {
-        //
+        DB::delete('delete from tbl_carts where pid=?',[$pid]);
+        return redirect("/home");
+       
+  }
+
+    public function view(Request $req)
+    {
+     //DB::table('tbl_cart')->where('id', Auth::id())->get();
+     $id=Auth::id();
+    
+    $cart=   DB::select("  SELECT * FROM `tbl_carts` , tbl_icecreams 
+    WHERE  tbl_carts.id= $id AND tbl_carts.pid=tbl_icecreams.pid");
+      if(count($cart)>=1)
+      {
+      return view('customer.cart',compact('cart'));
     }
+    else { 
+      return back();
+  }
+}
 }

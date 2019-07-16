@@ -33,45 +33,7 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link href="css1/cust.css" rel='stylesheet' type='text/css' media="all">
-
-<script language="javascript">
-var total_items = 1;
-
-function CalculateItemsValue() {
-	var total = 2;
-	for (i=1; i<=total_items; i++) {
-		
-		itemID = document.getElementById("qnt_"+i);
-		if (typeof itemID === 'undefined' || itemID === null) {
-			alert("No such item - " + "qnt_"+i);
-		} else {
-			total = total * parseInt(itemID.value) +  parseInt(itemID.getAttribute("data-price")  );
-		}
-		
-	}
-	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
-	
-}
-
-var total_items = 1;
-
-function CalculateItemsValues() {
-	var total = 0;
-	for (i=1; i<=total_items; i++) {
-		
-		itemID = document.getElementById("qnt_"+i);
-		if (typeof itemID === 'undefined' || itemID === null) {
-			alert("No such item - " + "qnt_"+i);
-		} else {
-			total = total + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
-		}
-		
-	}
-	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
-	
-}
-</script>
-   </head>
+</head>
    <body>
   
       <div class="main-top" id="home">
@@ -90,25 +52,123 @@ function CalculateItemsValues() {
 @section('content')
 
 <div class="container">
-<div class="card-header">ADD ICE CREAM</div>
+<div class="card-header">ICE CREAM CART</div>
             @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Ice Cream Store</div>
-
-                </div>
-            </div>
-    </div>
+    
   </div>
 </div>
 <div class="container">
 
-               
+<div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        
+
+                        <div class="cart-table clearfix">
+                      
+
+  <table class="table table-responsive">
+ <thead>
+ <tr>
+
+ <th>Product</th>
+ <th>Quantity</th>
+ <!-- <th>Product Name</th> -->
+ <th>Price</th>
+ <th>Action</th>
+ 
+ </tr>
+ </thead>
+ <?php 
+ $total = 0;
+  $count=1; 
+ ?>
+ 
+
+            @foreach($cart as $row)
+
+             <?php $total += $row->total; 
+         ?>
+ 
+            
+           
+ <tbody>
+ <tr class="rem1">
+     
+ <!-- <td class="invert">{{$count++}}</td> -->
+ <td class="invert-image"><a href="/single?pid={{$row->pid}}">
+ <img style="display:block;" width="20%" height="15%" 
+ src="{{ asset('/images/icecreams/'.$row->filename.'') }}"></a></td>
+
+ <td class="invert">
+                           <div class="quantity">
+                              <div class="quantity-select"  id="quan">
+                                 
+                                 <div class="entry value">
+                                <center>    <span>{{$row->quantity}}</span> </center>
+                                 </div>
+ <input type="hidden" name="id" value="{{$row->pid}}"/>
+                              </div>
+                           </div>
+                        </td>
+                              
+ 
+ 
+ </div>
+ </div>
+ </td>
+ <td class="invert" id="tot"  >Rs.{{$row->total}}</td>
+ 
+
+ 
+ </div>
+ </td>
+ 
+                           <div class="rem">
+ 
+                          
+ <td > 
+  <button class="submit check_out btn" > <a href="{{url('/delete-product/'.$row->pid)}}" class="submit">Remove</a>
+   </div> </Button></td>
+ 
+ </div> 
+ </div>
+  </td>
+ </tr>
+ </form>
+ 
+ </tbody>
+ @endforeach
+
+        
+ 
+ </table>
+ </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Cart Total</h5> <br>
+                          
+                            
+                               <span>Total:</span> <span> <td>Rs.{{$total}}</td><br>
+                               <td class="invert" id="tot"  >Collect It From Your Nearest Store
+ </td>
+  </span>
+                             
+   </span>
+                           
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+           
 						
 </div>
 

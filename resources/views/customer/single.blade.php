@@ -90,14 +90,7 @@ function CalculateItemsValues() {
 @section('content')
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Ice Cream Store</div>
-
-                </div>
-            </div>
-    </div>
+    
     <div class="card-header">ADD TO CART</div>
             @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -157,7 +150,7 @@ function CalculateItemsValues() {
                                     <tr>
 		<td>Item A</td>
 		<td>
-		<input name="qnt_1" type="text" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValue()" /></td>
+		<input name="qnt_1" type="text" min="1" max="100" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValue()" /></td>
 		<td>{{$row->prize}}</td>
 	</tr>
 	
@@ -174,7 +167,7 @@ function CalculateItemsValues() {
       <tr>
 		<td>Item A</td>
 		<td>
-		<input name="qnt_1" type="text" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValues()" /></td>
+		<input name="qnt_1" type="text" min="1" max="100" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValues()" /></td>
 		<td>{{$row->prize}}</td>
 	</tr>
 	
