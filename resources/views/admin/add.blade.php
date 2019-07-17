@@ -61,10 +61,7 @@
                           <a href="/update" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>UPDATE</a>
                           <a href="/view" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>DELETE</a><br> 
                         
-                          <a href="/users" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>USERS</a>
-                          <!-- <a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a><br>  -->
-                          <a href="/pics" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-picture"></span> <br/>PHOTOS</a>
-                          <!-- <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a> -->
+                         
                         </div>
                     </div>
                   

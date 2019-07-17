@@ -101,7 +101,8 @@
 <label>
 <p class="label-txt">Size</p>
     <input type="text" class="input"  id="size" name="size" value="{{$ice->size}}" readonly>
-
+    <input type="hidden"   id="pid" name="pid" value="{{$ice->pid}}" readonly>
+    <input type="hidden"   id="rid" name="rid" value="{{$ice->rid}}" readonly>
     <div class="line-box">
       <div class="line"></div>
     </div>
@@ -109,7 +110,7 @@
  
   <label>
     <p class="label-txt">Enter Amount</p>
-    <input type="text" class="input"  id="prize" name="prize" value="{{$ice->prize}}" >
+    <input type="text" class="input"  id="prize" name="prize" value="{{$ice->prize}}" required ="" >
    
     <div class="line-box">
       <div class="line"></div>

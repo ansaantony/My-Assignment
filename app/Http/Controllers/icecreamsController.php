@@ -43,8 +43,8 @@ class icecreamsController extends Controller
     
     public function updatep()
     {
-        $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, 
-        tbl_icecreams as d , tbl_prizes as e where d.pid=e.pid AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
+        $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, tbl_icecreams as d 
+        where d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
         return view('admin.prizetbl',compact('recipe'));
            
     }
@@ -57,15 +57,31 @@ class icecreamsController extends Controller
     }
 
 
-    public function prize($pid,Request $data)
+    public function prize($rid,Request $data)
     {
-        $value = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, 
-        tbl_icecreams as d where d.pid=$pid AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
-foreach ($value as $object)
+        // $rid=$data->input('rid');
+        // echo $rid;
+        $rid=$data['rid'];
+        // echo $rid;
+        $val = DB::select("SELECT * FROM `tbl_icecreams` WHERE rid='$rid'");
+        foreach ($val as $obj)
+        { 
+
+            $rid= $obj->rid;
+            $pid= $obj->pid;
+            // echo $pid;
+        $value = DB::select("SELECT * FROM tbl_icecreams,tbl_recipe, tbl_shape , tbl_size WHERE tbl_icecreams.pid=$pid 
+        AND tbl_shape.sid=tbl_icecreams.sid AND tbl_size.szid=tbl_icecreams.szid AND tbl_recipe.rid='$rid'");
+           
+    foreach ($value as $object)
+    
 { 
+  
         $recipe= $object->recipe;
         $shape=$object->shape;
         $size=$object->size;
+        $pstatus=$object->pstatus;
+        // echo $recipe;
         $prize=$data['prize'];
         if($size == 'Regular')
         {
@@ -100,7 +116,9 @@ foreach ($value as $object)
         }
         // echo $coneprize;
         // echo $cupprize;
-
+        
+       if($pstatus == 0)
+        {
         if($shape == 'Cup')
         {
         prize::create([
@@ -114,18 +132,37 @@ foreach ($value as $object)
                 'prize' => $cupprize,
                 ]);
         }
-          
+    }
+    else{
+        if($shape == 'Cup')
+        {
+            prize::where('pid', $pid)
+        ->update(['prize' => $coneprize]);
+           
+      
+        }
+        else{
+            prize::where('pid', $pid)
+        ->update(['prize' =>$cupprize]);
+        }
+         
+
+    }
+        DB::table('tbl_icecreams')->where('pid', $pid)->update(['pstatus'=>1]);
+    
+    }    
     }
 
  return redirect()->back() ->with('success','Prize Added successfully.');
     }
     
-
+    
     public function showprize(Request $request)
     {
         $pid=$request->input('pid');
-        $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, 
-        tbl_icecreams as d , tbl_prizes as e where d.pid=e.pid=$pid AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
+        $recipe = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c,
+         tbl_icecreams as d , tbl_prizes as e 
+        where d.pid='$pid' AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid AND e.pid='$pid'");
         return view('admin.editprizetbl',compact('recipe'));
     }
     /**
@@ -145,6 +182,7 @@ foreach ($value as $object)
      'sid' => $data['shape'],
      'szid' => $data['size'],
      'filename' => $filename,
+     'pstatus' => 0 ,
     
      
     ] );
@@ -153,6 +191,11 @@ foreach ($value as $object)
      
     }
 
+
+    
+        
+        
+   
     /**
      * Display the specified resource.
      *

@@ -46,7 +46,7 @@
 
                <nav >
                   <div id="logo">
-                     <h1><a class="" href="/">Ice milk<span>Tasty cream</span></a></h1>
+                     <h1><a class="" href="home">Ice milk<span>Tasty cream</span></a></h1>
                </div>
 @extends('layouts.app')
 @section('content')
@@ -55,9 +55,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Ice Cream Store</div>
+                <div class="card-header">Ice Cream Store
+                <a href="/cart"><img align="right" src="/images/add.jpg"></a></div>
 
-             
+            
             </div>
             
 
@@ -79,11 +80,12 @@
  $product = DB::select("SELECT * FROM `tbl_size` as a , tbl_shape as b , tbl_recipe as c, 
  tbl_icecreams as d , tbl_prizes as e where d.pid=e.pid AND d.szid= a.szid AND a.sid=b.sid AND b.rid=c.rid");
 ?>
+ <div class="row">
 @isset($product)
 @foreach($product as $ice)
 
-    <div class="row">
-        <div class="col-md-5 col-sm-4">
+   
+        <div class="col-md-4 col-sm-3">
             <div class="product-grid6">
                 <div class="product-image6">
                     <a href="#">
@@ -92,14 +94,14 @@
                 </div>
                 <div class="product-content">
                     <h3 class="title"><a href="#">{{$ice->recipe}}</a></h3>
-                    <div class="price">{{$ice->prize}}
+                    <div class="price">Rs. {{$ice->prize}}
                         <!-- <span>{{$ice->prize}}</span> -->
                     </div>
                 </div>
                 <ul class="social">
-                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+                    <!-- <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li> -->
                     <!-- <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li> -->
-                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                    <li><a href="/single?pid={{$ice->pid}}" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                 </ul>
             </div>
         </div>
