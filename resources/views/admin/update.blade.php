@@ -110,7 +110,7 @@
  
   <label>
     <p class="label-txt">Enter Amount</p>
-    <input type="text" class="input"  id="prize" name="prize" >
+    <input type="text" class="input"  id="prize" name="prize" required="" >
    
     <div class="line-box">
       <div class="line"></div>

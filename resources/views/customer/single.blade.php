@@ -42,12 +42,16 @@ function CalculateItemsValue() {
 	for (i=1; i<=total_items; i++) {
 		
 		itemID = document.getElementById("qnt_"+i);
-		if (typeof itemID === 'undefined' || itemID === null) {
+        if(itemID.value >=0 ){
+		if (typeof itemID === 'undefined' || itemID === null || itemID <= 0 ) {
 			alert("No such item - " + "qnt_"+i);
 		} else {
 			total = total * parseInt(itemID.value) +  parseInt(itemID.getAttribute("data-price")  );
 		}
-		
+    }
+        else {
+            alert("Enter Valid Number - " + "qnt_"+i);
+        }
 	}
 	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
 	
@@ -60,11 +64,16 @@ function CalculateItemsValues() {
 	for (i=1; i<=total_items; i++) {
 		
 		itemID = document.getElementById("qnt_"+i);
-		if (typeof itemID === 'undefined' || itemID === null) {
+        if(itemID.value >=0 ){
+		if (typeof itemID === 'undefined' || itemID === null || itemID <= 0 ) {
 			alert("No such item - " + "qnt_"+i);
 		} else {
 			total = total + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
 		}
+        }
+        else {
+            alert("Enter Valid Number - " + "qnt_"+i);
+        }
 		
 	}
 	document.getElementById("ItemsTotal").innerHTML = "Rs." + total;
@@ -91,7 +100,8 @@ function CalculateItemsValues() {
 
 <div class="container">
     
-    <div class="card-header">ADD TO CART</div>
+    <div class="card-header">ADD TO CART
+    <a href="/cart"><img align="right" src="/images/add.jpg"></a></div></div>
             @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -167,7 +177,7 @@ function CalculateItemsValues() {
       <tr>
 		<td>Item A</td>
 		<td>
-		<input name="qnt_1" type="text" min="1" max="100" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValues()" /></td>
+		<input name="qnt_1" type="text" min="1" max="100" id="qnt_1" value="" size="3" data-price="{{$row->prize}}" onkeyup="CalculateItemsValues()" required=" "/></td>
 		<td>{{$row->prize}}</td>
 	</tr>
 	
@@ -193,7 +203,9 @@ function CalculateItemsValues() {
      <input type="hidden" id="prize" name="prize" value="{{$row->prize}}">
                         
     <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+   
                             </form>
+                            <a href="/home"><button type="cancel" value="5" class="btn amado-btn">Cancel</button></a>
                         </div> @endforeach
                     </div>
                 </div>   

@@ -55,9 +55,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Ice Cream Store</div>
+                <div class="card-header">Ice Cream Store
+                <a href="/cart"><img align="right" src="/images/add.jpg"></a></div>
 
-             
+            
             </div>
             
 

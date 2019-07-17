@@ -30,7 +30,35 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<script>
+function Check()                                    
+{ 
+    var recipe = document.forms["add"]["recipe"];               
+    var shape =  document.forms["add"]["shape"]; 
+    var size =  document.forms["add"]["size"];  
+    
+    if (recipe.value == "")                                  
+    { 
+        window.alert("Please enter Recipe."); 
+        recipe.focus(); 
+        return false; 
+    } 
+    if (shape.selectedIndex < 1)                  
+    { 
+        alert("Please enter Shape."); 
+        shape.focus(); 
+        return false; 
+    } 
+    if (size.selectedIndex < 1)                  
+    { 
+        alert("Please enter Size."); 
+        size.focus(); 
+        return false; 
+    } 
+   
+    return true; 
+}
+</script>
    </head>
    <body>
   
@@ -88,12 +116,12 @@
 @endif
 @isset($st)
                 @foreach($st as $ice)
-            <form action="{{url('/edit/'.$ice->pid)}}" method="POST" >
+            <form action="{{url('/edit/'.$ice->pid)}}" method="POST" name="add" onsubmit="return Check()" >
     @csrf
   
     <label>
     
-  <select class="input" id="rid" name="recipe">
+  <select class="input" id="rid" name="recipe" required="">
   <option>{{$ice->recipe}}</option>
      <?php
  
@@ -112,7 +140,7 @@
       <div class="line"></div>
     </div>
   </label>
-  <select name="shape" class="input" id="shape">>
+  <select name="shape" class="input" id="shape" required="">
     <option>{{$ice->shape}}</option>
        <option></option>
 	</select>
@@ -123,7 +151,7 @@
 
   <label>
   
-  <select name="size" class="input" id="size">>
+  <select name="size" class="input" id="size"  required="">
   
  <option>{{$ice->size}}</option>
                 

@@ -52,7 +52,8 @@
 @section('content')
 
 <div class="container">
-<div class="card-header">ICE CREAM CART</div>
+<div class="card-header">ICE CREAM CART
+<a href="/cart"><img align="right" src="/images/add.jpg"></a></div></div>
             @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -158,6 +159,7 @@
                                <span>Total:</span> <span> <td>Rs.{{$total}}</td><br>
                                <td class="invert" id="tot"  >Collect It From Your Nearest Store
  </td>
+ <a href="/home"><button type="cancel" value="5" class="btn amado-btn">Back to Home</button></a>
   </span>
                              
    </span>
